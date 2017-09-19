@@ -8,6 +8,8 @@
 #include <limits.h>
 #include <stdlib.h>
 
+#include <math.h>
+
 #include <ezparse.h>
 
 __attribute__ ((leaf, nonnull (1, 2), nothrow, warn_unused_result))

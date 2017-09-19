@@ -2,7 +2,7 @@ lib_LTLIBRARIES = libezparse.la
 libezparse_la_SOURCES = ezparse.c
 include_HEADERS = ezparse.h
 #libezparse_la_CFLAGS =
-#libezparse_la_LDFLAGS = -lnova -lrestart
+libezparse_la_LDFLAGS = -lm
 
 #bin_PROGRAMS = ezparse
 

@@ -11,6 +11,7 @@ AC_CONFIG_FILES([
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_CHECK_HEADERS([errno.h limits.h stdlib.h])
+AC_CHECK_HEADERS([math.h])
 AC_CHECK_HEADERS([glitter.h])
 
 AC_CHECK_LIB([stdlib],[strtod,strtol])
