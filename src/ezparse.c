@@ -45,6 +45,7 @@ int parseDouble (double *restrict ret, char const str[]) {
 	*ret = strtod (str, &endptr);
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wfloat-equal"
+	TODO (is float-equal acceptable here?)
 	error_check (*ret == HUGE_VAL && errno == ERANGE) return -2;
 	error_check (*ret == HUGE_VAL && errno == ERANGE) return -3;
 	error_check (*ret == 0        && errno != 0)      return -4;
