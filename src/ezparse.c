@@ -1,3 +1,7 @@
+#if HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #define XOPEN_SOURCE 600
 #define _BSD_SOURCE
 #define _SVID_SOURCE
