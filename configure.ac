@@ -9,6 +9,7 @@ AC_CONFIG_FILES([
  src/Makefile
 ])
 AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_SUBDIRS([glitter])
 
 AC_CHECK_HEADERS([errno.h limits.h stdlib.h])
 AC_CHECK_HEADERS([math.h])
