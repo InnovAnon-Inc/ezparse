@@ -10,4 +10,5 @@ libezparse_la_LIBADD = -lm
 #ezparse_LDADD = libezparse.la -lnova -lrestart
 #ezparse_CFLAGS =
 
-AM_CPPFLAGS += -D__STDC_INT64__
+AM_CPPFLAGS = -D__STDC_INT64__
+AM_CPPFLAGS += -I $(srcdir)/glitter/src
