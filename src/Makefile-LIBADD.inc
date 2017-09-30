@@ -1,0 +1,1 @@
+LIBEZPARSE_LIBADD = -lm

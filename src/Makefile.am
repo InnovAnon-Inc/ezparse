@@ -3,7 +3,7 @@ AM_CPPFLAGS = -D__STDC_INT64__
 SUBDIRS = ../glitter
 AM_CPPFLAGS += -I $(top_srcdir)/glitter/src
 
-LIBEZPARSE_LIBADD = -lm
+include Makefile-LIBADD.inc
 
 lib_LTLIBRARIES = libezparse.la
 include_HEADERS = ezparse.h
