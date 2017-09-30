@@ -18,7 +18,7 @@
 
 __attribute__ ((leaf, nonnull (1, 2), nothrow, warn_unused_result))
 int parseLong (long int *restrict ret, char const str[]) {
-	char *endptr;
+	char *restrict endptr;
 	long int tmp;
 	errno = 0;
 	tmp = strtol (str, &endptr, 0);
@@ -44,7 +44,7 @@ int parseInt (int *restrict ret, char const str[]) {
 
 __attribute__ ((leaf, nonnull (1, 2), nothrow, warn_unused_result))
 int parseDouble (double *restrict ret, char const str[]) {
-	char *endptr;
+	char *restrict endptr;
 	errno = 0;
 	*ret = strtod (str, &endptr);
 	#pragma GCC diagnostic push
