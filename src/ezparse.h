@@ -12,6 +12,9 @@ extern "C" {
 int parseLong (long int *restrict ret, char const str[])
 __attribute__ ((leaf, nonnull (1, 2), nothrow, warn_unused_result)) ;
 
+int parseLongs (long int ret[], size_t *n, char const str[], size_t len)
+__attribute__ ((leaf, nonnull (1, 2, 3), nothrow, warn_unused_result)) ;
+
 int parseInt (int *restrict ret, char const str[])
 __attribute__ ((leaf, nonnull (1, 2), nothrow, warn_unused_result)) ;
 
