@@ -33,6 +33,36 @@ int parseLong (long int *restrict ret, char const str[]) {
 }
 
 __attribute__ ((leaf, nonnull (1, 2), nothrow, warn_unused_result))
+int parseLongs (long int ret[], size_t *n, char const str[], size_t len) {
+	char *startptr = str;
+	char *endptr;
+	size_t N = *n;
+
+	errno = 0;
+	for (*n = 0; *n != N && startptr < str + len; (*n)++) {
+		/* no more input */
+		if (*startptr == '\0') return -1;
+		/* get next long */
+		ret[*n] = strtol (startptr, &endptr, 0);
+		/* long too small */
+		error_check (ret[*n] == LONG_MIN && errno == ERANGE) return -2;
+		/* long too big */
+		error_check (ret[*n] == LONG_MAX && errno == ERANGE) return -3;
+		/* other parsing error */
+		error_check (ret[*n] == 0        && errno != 0)      return -4;
+		/* no digits at all */
+		if (ret[*n] == 0 && endptr == startptr) return -5;
+		/* no more input */
+		if (*endptr == '\0') return -6;
+		TODO (maybe ppl wanna know what delimeters we skipped)
+		/* skip invalid char */
+		startptr = endptr + 1;
+	}
+
+	return 0;
+}
+
+__attribute__ ((leaf, nonnull (1, 2), nothrow, warn_unused_result))
 int parseInt (int *restrict ret, char const str[]) {
 	long int tmp;
 	error_check (parseLong (&tmp, str) != 0) return -1;
@@ -67,3 +97,18 @@ int parseBool (bool *restrict ret, char const str[]) {
 	*ret = !! tmp;
 	return 0;
 }
+
+/*
+size_t parseMultiple (void *data, size_t esz,
+	char const fmt[], size_t n, char const str[]) {
+	size_t i;
+	array_t array;
+	init_array (&array, data, esz, n);
+
+	for (i = 0; i != n; i++)
+		sscanf (str, fmt, index_array (&array, i));
+		NEED strtok
+
+	return i;
+}
+*/
