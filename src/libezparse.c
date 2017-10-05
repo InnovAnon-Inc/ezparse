@@ -32,8 +32,9 @@ int parseLong (long int *restrict ret, char const str[]) {
 	return 0;
 }
 
+#ifdef TEST
 __attribute__ ((leaf, nonnull (1, 2, 3), nothrow, warn_unused_result))
-int parseLongs (long int ret[], size_t *n, char const str[], size_t len) {
+int parseLongs (long int ret[], size_t *restrict n, char const str[], size_t len) {
 	char const *restrict startptr = str;
 	char *endptr;
 	size_t N = *n;
@@ -41,7 +42,7 @@ int parseLongs (long int ret[], size_t *n, char const str[], size_t len) {
 	errno = 0;
 	for (*n = 0; *n != N && startptr < str + len; (*n)++) {
 		/* no more input */
-		if (*startptr == '\0') return -1;
+		error_check (*startptr == '\0') return -1;
 		/* get next long */
 		ret[*n] = strtol (startptr, &endptr, 0);
 		/* long too small */
@@ -51,9 +52,9 @@ int parseLongs (long int ret[], size_t *n, char const str[], size_t len) {
 		/* other parsing error */
 		error_check (ret[*n] == 0        && errno != 0)      return -4;
 		/* no digits at all */
-		if (ret[*n] == 0 && endptr == startptr) return -5;
+		error_check (ret[*n] == 0 && endptr == startptr) return -5;
 		/* no more input */
-		if (*endptr == '\0') return -6;
+		error_check (*endptr == '\0' && *n != N - 1) return -6;
 		TODO (maybe ppl wanna know what delimeters we skipped)
 		/* skip invalid char */
 		startptr = endptr + 1;
@@ -61,6 +62,7 @@ int parseLongs (long int ret[], size_t *n, char const str[], size_t len) {
 
 	return 0;
 }
+#endif
 
 __attribute__ ((leaf, nonnull (1, 2), nothrow, warn_unused_result))
 int parseInt (int *restrict ret, char const str[]) {
@@ -98,17 +100,27 @@ int parseBool (bool *restrict ret, char const str[]) {
 	return 0;
 }
 
-/*
-size_t parseMultiple (void *data, size_t esz,
-	char const fmt[], size_t n, char const str[]) {
+#ifdef TEST
+typedef __attribute__ ((nonnull (1, 2, 3), warn_unused_result))
+int (*str_to_any_t) (void *restrict dest,
+	char const str[], char const **restrict endptr) ;
+
+__attribute__ ((leaf, nonnull (1, 3, 4, 5, 6), nothrow, warn_unused_result))
+int parseMultiple (void *restrict restrict data, size_t esz,
+	size_t *restrict n,
+	str_to_any_t str_to_any, char const str[],
+	char const **restrict endptr) {
+	char const *restrict startptr = str;
 	size_t i;
-	array_t array;
-	init_array (&array, data, esz, n);
-
-	for (i = 0; i != n; i++)
-		sscanf (str, fmt, index_array (&array, i));
-		NEED strtok
-
-	return i;
+	for (i = 0; i != *n; i++) {
+		error_check (startptr == str + len) return -1;
+		error_check (*startptr == '\0') return -2;
+		error_check (str_to_any (dest, startptr, endptr) != 0) return -3;
+		error_check (startptr == *endptr) return -4;
+		startptr = *endptr;
+		dest += esz;
+	}
+	*n = i;
+	return 0;
 }
-*/
+#endif
