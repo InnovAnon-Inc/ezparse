@@ -10,7 +10,8 @@ dist_bin_SCRIPTS = libezparse_config
 
 lib_LTLIBRARIES = libezparse.la
 include_HEADERS = ezparse.h
-libezparse_la_LIBADD = $(LIBEZPARSE_LIBADD)
+#libezparse_la_LIBADD = $(LIBEZPARSE_LIBADD)
+libezparse_la_LIBADD = @LIBEZPARSE_LIBADD@
 
 #bin_PROGRAMS = ezparse-test
 #ezparse_test_LDADD = libezparse.la $(LIBEZPARSE_LIBADD) -lnova -lrestart
