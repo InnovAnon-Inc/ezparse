@@ -23,8 +23,9 @@ AC_CHECK_HEADERS([glitter.h])
 
 AC_CHECK_LIB([stdlib],[strtod,strtol])
 
-srcdir = @srcdir@
-LIBEZPARSE_LIBADD="`PATH=$(srcdir)src:$PATH libezparse_config --libs`"
+#srcdir = @srcdir@
+#LIBEZPARSE_LIBADD="`PATH=$(srcdir)src:$PATH libezparse_config --libs`"
+LIBEZPARSE_LIBADD="`PATH=src:$PATH libezparse_config --libs`"
 AC_SUBST(LIBEZPARSE_LIBADD)
 
 INNOVANON_WARNINGS([])
