@@ -8,26 +8,26 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
  Makefile
  src/Makefile
+ src/libezparse.pc
 ])
+
+PKG_PROG_PKG_CONFIG
 
 AC_ARG_ENABLE([use-submodules],
     AS_HELP_STRING([--enable-use-submodules], [Enable use submodules]))
 AM_CONDITIONAL([USE_SUBMODULES], [test x"$enable_use_submodules" = "xyes"])
 
 AC_CONFIG_MACRO_DIR([m4])
-#AC_CONFIG_SUBDIRS([glitter])
 
 AC_CHECK_HEADERS([errno.h limits.h stdlib.h])
 AC_CHECK_HEADERS([math.h])
-AC_CHECK_HEADERS([glitter.h])
+#AC_CHECK_HEADERS([glitter.h])
 
 AC_CHECK_LIB([stdlib],[strtod,strtol])
 
-#srcdir = @srcdir@
-#LIBEZPARSE_LIBADD="`PATH=$(srcdir)src:$PATH libezparse_config --libs`"
-LIBEZPARSE_LIBADD="`PATH=src:$PATH libezparse_config --libs`"
-AC_SUBST(LIBEZPARSE_LIBADD)
+PKG_CHECK_MODULES([GLITTER],[glitter],,)
 
 INNOVANON_WARNINGS([])
 
 AC_OUTPUT
+
