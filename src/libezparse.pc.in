@@ -11,5 +11,7 @@ Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -lezparse
 Cflags: -I${includedir}
 Requires: glitter
-Requires.private: -lm
+#Requires.private: -lm
+Requires.private:
+Libs.private: -lm
 
